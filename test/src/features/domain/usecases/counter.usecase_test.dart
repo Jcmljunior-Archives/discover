@@ -17,7 +17,7 @@ void main() {
     usecase = CounterUsecase(repository);
   });
 
-  const tNumber = 1;
+  const tNumber = 5;
   const tCounter = CounterEntity(
     id: 1,
     counter: 10,
@@ -32,7 +32,7 @@ void main() {
       final result = await usecase(tNumber);
       expect(result, const Right(tCounter));
 
-      verify(() => repository.counterIncrement(tNumber));
+      verify(() => repository.counterIncrement(tNumber)).called(1);
     },
   );
 
@@ -45,7 +45,7 @@ void main() {
       final result = await usecase(tNumber);
       expect(result, Left(ServerFailure()));
 
-      verify(() => repository.counterIncrement(tNumber));
+      verify(() => repository.counterIncrement(tNumber)).called(1);
     },
   );
 }
